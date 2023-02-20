@@ -62,9 +62,9 @@ window.addEventListener('scroll', () => {
         openModal(scrolled);
     }
 })
-function modalClick(event) {
-    if(event.target === modal) {
-        modal.classList.add('hide')
+
+window.onclick=function(e){
+    if (e.target==modal) {
+        modal.style.display='none'
     }
 }
-modalClick()
