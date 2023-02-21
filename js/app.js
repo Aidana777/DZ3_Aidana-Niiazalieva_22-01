@@ -48,7 +48,7 @@ tabsParent.addEventListener("click", (event) => {
 
     setTimeout(() => {
       sliderInterval = startSlider();
-    }, 3000);
+    }, 3000 );
   }
 });
 
@@ -56,7 +56,7 @@ const animateTabContent = (elem) => {
   elem.classList.add("fade");
   setTimeout(() => {
     elem.classList.remove("fade");
-  }, 500);
+  }, 5000);
 };
 
 const animateTabs = () => {
@@ -73,37 +73,37 @@ const modal = document.querySelector(".modal");
 const modalTrigger = document.querySelectorAll("[data-modal]");
 
 modalTrigger.forEach((item) => {
-    item.addEventListener("click", openModal);
+  item.addEventListener("click", openModal);
 });
 
 function openModalScroll() {
-    const page = document.documentElement;
-    if (page.scrollTop + page.clientHeight >= page.scrollHeight) {
-        openModal();
-        window.removeEventListener("scroll", openModalScroll);
-    }
+  const page = document.documentElement;
+  if (page.scrollTop + page.clientHeight >= page.scrollHeight - 0.8) {
+    openModal();
+    window.removeEventListener("scroll", openModalScroll);
+  }
 }
 
 function openModal() {
-    modal.classList.add("show");
-    modal.classList.remove("hide");
-    document.body.style.overflow = "hidden";
+  modal.classList.add("show");
+  modal.classList.remove("hide");
+  document.body.style.overflow = "hidden";
 
-    clearInterval(modalTimeout);
+  clearInterval(modalTimeout);
 }
 function closeModal() {
-    modal.classList.add("hide");
-    modal.classList.remove("show");
-    document.body.style.overflow = "";
+  modal.classList.add("hide");
+  modal.classList.remove("show");
+  document.body.style.overflow = "";
 }
 
 modal.addEventListener("click", (event) => {
-    if (
-        event.target === modal ||
-        event.target.classList.contains("modal__close")
-    ) {
-        closeModal();
-    }
+  if (
+    event.target === modal ||
+    event.target.classList.contains("modal__close")
+  ) {
+    closeModal();
+  }
 });
 window.addEventListener("scroll", openModalScroll);
 const modalTimeout = setTimeout(openModal, 50000);
@@ -113,10 +113,10 @@ const close = document.querySelector('#close_modal');
 
 
 open.addEventListener('click', () => {
-    modal.classList.remove('close_modal')
-    modal.classList.add('open_modal')
+  modal.classList.remove('close_modal')
+  modal.classList.add('open_modal')
 })
 close.addEventListener('click', () => {
-    modal.classList.remove('open_modal')
-    modal.classList.add('close_modal')
+  modal.classList.remove('open_modal')
+  modal.classList.add('close_modal')
 })
