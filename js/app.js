@@ -1,96 +1,70 @@
+const tabs = document.querySelectorAll(".tabheader__item");
+const tabsParent = document.querySelector(".tabheader__items");
+const tabContent = document.querySelectorAll(".tabcontent");
 
-//* SLIDER
+const hideTabContent = () => {
+  tabContent.forEach((item) => {
+    item.style.display = "none";
+  });
+  tabs.forEach((item) => {
+    item.classList.remove("tabheader__item_active");
+  });
+};
 
-let slideIndex = 0;
-function currentSlide(n) {
-    showSlides(slideIndex = n);
-}
+const showTabContent = (i = 0) => {
+  tabContent[i].style.display = "block";
+  tabs[i].classList.add("tabheader__item_active");
+};
+hideTabContent();
+showTabContent();
 
-function showSlides(n) {
-    let slides = document.querySelectorAll(".tabheader__item");
-    let sliderSlide = document.querySelectorAll(".tabcontent");
-    if (n > slides.length && n > sliderSlide.length) {
-        slideIndex += 1;
-    }
-    if (n < 0) {
-        slideIndex = slides.length && slideIndex === sliderSlide.length;
-    }
-    for (let slide of slides) {
-        slide.classList.remove("tabheader__item_active");
-    }
-    slides[n].classList.add("tabheader__item_active");
+let currentSlideIndex = 0;
 
-    for (let slide of sliderSlide) {
-        slide.style.display = "none";
-    }
-    sliderSlide[slideIndex].style.display = "block";
-}
+const startSlider = () => {
+  const sliderInterval = setInterval(() => {
+    currentSlideIndex = (currentSlideIndex + 1) % tabs.length;
+    hideTabContent();
+    showTabContent(currentSlideIndex);
+  }, 1000);
 
-let timer = setInterval(function () {
-    {
-        slideIndex++;
-        if (slideIndex > 3) {
-            slideIndex = 0
-        }
-    }
-    showSlides(slideIndex);
-}, 3000);
+  return sliderInterval;
+};
 
-//* MODAL
+let sliderInterval = startSlider();
 
-const modal = document.querySelector(".modal");
-const modalTrigger = document.querySelectorAll("[data-modal]");
+tabsParent.addEventListener("click", (event) => {
+  const target = event.target;
 
-modalTrigger.forEach((item) => {
-    item.addEventListener("click", openModal);
+  if (target.classList.contains("tabheader__item")) {
+    clearInterval(sliderInterval);
+
+    tabs.forEach((item, i) => {
+      if (target === item) {
+        currentSlideIndex = i;
+        hideTabContent();
+        showTabContent(i);
+      }
+    });
+
+    setTimeout(() => {
+      sliderInterval = startSlider();
+    }, 3000);
+  }
 });
 
-function openModal() {
-    modal.classList.add("show");
-    modal.classList.remove("hide");
-    document.body.style.overflow = "hidden";
+const animateTabContent = (elem) => {
+  elem.classList.add("fade");
+  setTimeout(() => {
+    elem.classList.remove("fade");
+  }, 500);
+};
 
-    clearInterval(modalTimeout);
-}
+const animateTabs = () => {
+  tabs.forEach((tab) => {
+    animateTabContent(tab);
+  });
+};
 
-function closeModal() {
-    modal.classList.add("hide");
-    modal.classList.remove("show");
-    document.body.style.overflow = "";
-}
-
-modal.addEventListener("click", (event) => {
-    if (
-        event.target === modal ||
-        event.target.classList.contains("modal__close")
-    ) {
-        closeModal();
-    }
-});
-
-function openModalScroll() {
-    const page = document.documentElement;
-
-    if (page.scrollTop + page.clientHeight >= page.scrollHeight) {
-        openModal();
-
-        window.removeEventListener("scroll", openModalScroll);
-    }
-}
-
-window.addEventListener("scroll", openModalScroll);
-const modalTimeout = setTimeout(openModal, 50000);
-
-const open = document.querySelector("#open_modal");
-const close = document.querySelector('#close_modal');
-
-
-open.addEventListener('click', () => {
-    modal.classList.remove('close_modal')
-    modal.classList.add('open_modal')
-})
-
-close.addEventListener('click', () => {
-    modal.classList.remove('open_modal')
-    modal.classList.add('close_modal')
-})
+setInterval(() => {
+  animateTabs();
+}, 1000);
