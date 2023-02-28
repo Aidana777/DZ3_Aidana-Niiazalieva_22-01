@@ -131,11 +131,12 @@ const postData = (form) => {
     const obj = {}
     forms.forEach((item, name) => {
       if (request.readyState === 4 && request.status === 200) {
-        alert('Everything is correct!!!')
+        console.log('Everything is correct!!!')
+        obj[name] = item
       } else if (request.readyState === 4) {
-        alert('Something wrong')
+        console.log('Everything is not correct!!!')
       }
-      obj[name] = item
+
 
     })
     console.log(item);
