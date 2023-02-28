@@ -125,6 +125,7 @@ close.addEventListener('click', () => {
   modal.classList.add('close_modal')
 })
 
+
 close.addEventListener('click', () => {
   modal.classList.remove('open_modal')
   modal.classList.add('close_modal')
@@ -135,14 +136,7 @@ const messageText = {
   error: 'Ошибка при запросе!'
 }
 
-
-
-
 const forms = document.querySelectorAll('form');
-
-
-
-
 
 forms.forEach((form) => {
   postData(form);
@@ -182,4 +176,3 @@ function postData(form) {
     })
   })
 }
-
