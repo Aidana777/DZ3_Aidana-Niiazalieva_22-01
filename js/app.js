@@ -48,7 +48,7 @@ tabsParent.addEventListener("click", (event) => {
 
     setTimeout(() => {
       sliderInterval = startSlider();
-    }, 3000 );
+    }, 3000);
   }
 });
 
@@ -120,3 +120,26 @@ close.addEventListener('click', () => {
   modal.classList.remove('open_modal')
   modal.classList.add('close_modal')
 })
+const forms = document.querySelectorAll('form')
+const postData = (form) => {
+  form.addEventListener('submit', (e) => {
+    e.preventDefault()
+    const request = new XMLHttpRequest();
+    request.open('POST', 'server.php')
+    request.setRequestHeader('Content-type', 'application/json')
+    const formData = new FormData(form)
+    const obj = {}
+    forms.forEach((item, name) => {
+      if (request.readyState === 4 && request.status === 200) {
+        alert('Everything is correct!!!')
+      } else if (request.readyState === 4) {
+        alert('Something wrong')
+      }
+      obj[name] = item
+
+    })
+    console.log(item);
+    const json = JSON.stringify(obj)
+    request.send(json)
+  })
+}
