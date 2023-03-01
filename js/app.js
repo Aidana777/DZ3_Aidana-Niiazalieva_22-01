@@ -126,24 +126,10 @@ close.addEventListener('click', () => {
 })
 
 
-close.addEventListener('click', () => {
-  modal.classList.remove('open_modal')
-  modal.classList.add('close_modal')
-})
-const messageText = {
-  loading: 'Loading...',
-  success: 'Все успешно сохранено!',
-  error: 'Ошибка при запросе!'
-}
-
 const forms = document.querySelectorAll('form');
-
 forms.forEach((form) => {
   postData(form);
 })
-
-
-
 
 function postData(form) {
   form.addEventListener('submit', (event) => {
@@ -161,7 +147,6 @@ function postData(form) {
     formData.forEach((value, key) => {
       obj[key] = value;
     })
-
     console.log(obj);
     request.send(formData);
     request.addEventListener('load', () => {
@@ -174,5 +159,6 @@ function postData(form) {
         messageBlock.textContent = messageText.error;
       }
     })
+
   })
 }
